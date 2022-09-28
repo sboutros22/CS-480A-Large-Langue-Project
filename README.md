@@ -1,1 +1,1 @@
-# CS-480A-Large-Langue-Project
+# CS-480A-Large-Language-Project
