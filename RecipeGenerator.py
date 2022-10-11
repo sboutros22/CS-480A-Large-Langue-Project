@@ -5,7 +5,8 @@ from tkinter import ttk
 from tkinter.messagebox import showinfo
 
 def GPT3():
-    openai.api_key = os.getenv("OPENAI_API_KEY")
+    openai.api_key = os.getenv("OPENAI_API_KEY") # API key will be pulled from environment variables from windows operating system.
+                                                 # or you can set openai.api_key equal to your api key directly
 
     response = openai.Completion.create(model="text-davinci-002",
                                         prompt="This is a recipe for {} people for {}:".format(num_people.get(),food.get()),
