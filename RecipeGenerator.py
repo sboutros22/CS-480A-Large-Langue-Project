@@ -25,11 +25,24 @@ def GPT3():
                                             top_p=1)
         return response.choices[0].text 
     
+    
+def generate_recipe():
+    """ callback when the generate button is clicked
+    """
+    recipe = GPT3()
+    
+    recipe_window = tk.Tk()
+
+    recipe_label = ttk.Label(recipe_window, text="Here is your custom recipe!")
+    recipe_label.pack(expand=True)
+
+    recipe_text = tk.Text(recipe_window)
+    recipe_text.insert('0.0', recipe)
+    recipe_text.pack(expand=True)
+
+
 
     recipe_window.mainloop()
-
-
-
 
 
 ####################################################################################################################################################################
@@ -74,23 +87,7 @@ Custimization_entry = ttk.Entry(info, textvariable=Custimization)
 Custimization_entry.pack(fill='x', expand=True)
 
 # Submit button
-login_button = ttk.Button(info, text="Generate Recipe", command=generate_recipie)
+login_button = ttk.Button(info, text="Generate Recipe", command=generate_recipe)
 login_button.pack(fill='x', expand=True, pady=10)
-
-root.mainloop()
-
-def AcceptableRecipe(Text):
-    if(Text == "yes"):
-        return print("Thank you for using AutoRecipes!")
-        
-    elif(Text == "no"):
-        return print("please run the code again and if that doesn't work, please adjust peramiters.")
-        
-    elif(Text != "no" and Text != "yes"):
-        print("please insert either yes or no.")
-        Text = input()
-        return AcceptableRecipe(Text)
-        
-
 
 root.mainloop()
