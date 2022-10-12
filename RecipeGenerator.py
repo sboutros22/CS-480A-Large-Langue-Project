@@ -89,7 +89,7 @@ people_entry = ttk.Entry(info, textvariable=num_people)
 people_entry.pack(fill='x', expand=True)
 
 # Custimization
-Customization_label = ttk.Label(info, text="Would you like to custimize? Leave blank if no.")
+Customization_label = ttk.Label(info, text="Would you like to customize? Leave blank if no.")
 Customization_label.pack(fill='x', expand=True)
 
 Customization_entry = ttk.Entry(info, textvariable=customization)
