@@ -20,7 +20,7 @@ def GPT3():
         response = openai.Completion.create(model="text-davinci-002",
                                             prompt="This is a recipe for {} people for {} with no {}:".format(num_people.get(),food.get(),customization.get()),
                                             temperature=0.7,
-                                            max_tokens=10,
+                                            max_tokens=1000,
                                             top_p=1)
     return response.choices[0].text
 
