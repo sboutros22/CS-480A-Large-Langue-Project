@@ -3,50 +3,62 @@ import openai
 import tkinter as tk
 from tkinter import ttk
 from tkinter.messagebox import showinfo
+from asyncio.windows_events import NULL
 
 def GPT3():
-    openai.api_key = os.getenv("OPENAI_API_KEY") # API key will be pulled from environment variables from windows operating system.
-                                                 # or you can set openai.api_key equal to your api key directly
 
-    response = openai.Completion.create(model="text-davinci-002",
-                                        prompt="This is a recipe for {} people for {}:".format(num_people.get(),food.get()),
-                                        temperature=0.7,
-                                        max_tokens=1000,
-                                        top_p=1)
+    openai.api_key = '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'
+
+    if(customization == NULL):
+        response = openai.Completion.create(model="text-davinci-002",
+                                            prompt="This is a recipe for {} people for {}:".format(num_people.get(),food.get()),
+                                            temperature=0.7,
+                                            max_tokens=1000,
+                                            top_p=1)
+        return response.choices[0].text
+    elif(customization != NULL):
+        response = openai.Completion.create(model="text-davinci-002",
+                                            prompt="This is a recipe for {} people for {} with no {}:".format(num_people.get(),food.get(),customization.get()),
+                                            temperature=0.7,
+                                            max_tokens=10,
+                                            top_p=1)
     return response.choices[0].text
 
-def generate_recipie():
+def generate_recipe():
     """ callback when the generate button is clicked
     """
-    recipie = GPT3()
-    
-    recipie_window = tk.Tk()
+    recipe = GPT3()
 
-    recipie_label = ttk.Label(recipie_window, text="Here is your custom recipie!")
-    recipie_label.pack(expand=True)
+    recipe_window = tk.Tk()
+    recipe_window.geometry("700x800")
+    recipe_window.title('Recipe')
 
-    recipie_text = tk.Text(recipie_window)
-    recipie_text.insert('0.0', recipie)
-    recipie_text.pack(expand=True)
+    recipe_label = ttk.Label(recipe_window, text="Here is your custom recipe!")
+    recipe_label.pack()
 
+    recipe_text = tk.Text(recipe_window)
+    recipe_text.insert('0.0', recipe)
+    recipe_text.pack(fill=tk.BOTH, expand=True)
 
+    #This is new
+    button = ttk.Button(recipe_window, text="Click for a new recipe with the same criteria", command=generate_recipe)
+    button.pack(padx=5, pady=5)
 
-    recipie_window.mainloop()
-
-
-
+    recipe_window.mainloop()
 
 
 ####################################################################################################################################################################
 
+
 root = tk.Tk()
-root.geometry("300x150")
-root.resizable(False, False)
-root.title('Sign In')
+root.geometry("350x200")
+root.resizable(True, True)
+root.title('Recipe Generator')
 
 # store email address and password
 food = tk.StringVar()
 num_people = tk.StringVar()
+customization = tk.StringVar()
 
 
 # Info frame
@@ -69,8 +81,15 @@ people_label.pack(fill='x', expand=True)
 people_entry = ttk.Entry(info, textvariable=num_people)
 people_entry.pack(fill='x', expand=True)
 
+# Customization
+Custimization_label = ttk.Label(info, text="Would you like to customize? List ingredients to leave out")
+Custimization_label.pack(fill='x', expand=True)
+
+customization_entry = ttk.Entry(info, textvariable=customization)
+customization_entry.pack(fill='x', expand=True)
+
 # Submit button
-login_button = ttk.Button(info, text="Generate Recipie", command=generate_recipie)
+login_button = ttk.Button(info, text="Generate Recipe", command=generate_recipe)
 login_button.pack(fill='x', expand=True, pady=10)
 
 root.mainloop()
