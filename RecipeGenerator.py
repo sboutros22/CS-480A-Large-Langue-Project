@@ -7,7 +7,7 @@ from asyncio.windows_events import NULL
 
 def GPT3():
 
-    openai.api_key = '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'
+    openai.api_key = 'YOUR API KEY'
 
     if(customization == NULL):
         response = openai.Completion.create(model="text-davinci-002",
@@ -37,10 +37,9 @@ def generate_recipe():
     recipe_label.pack()
 
     recipe_text = tk.Text(recipe_window)
-    recipe_text.insert('0.0', recipe)
+    recipe_text.insert('0.0', recipe) #0.0 is starts at line 0 and at letter 0 in that line. line.letter
     recipe_text.pack(fill=tk.BOTH, expand=True)
 
-    #This is new
     button = ttk.Button(recipe_window, text="Click for a new recipe with the same criteria", command=generate_recipe)
     button.pack(padx=5, pady=5)
 
@@ -66,7 +65,7 @@ info = ttk.Frame(root)
 info.pack(padx=10, pady=10, fill='x', expand=True)
 
 
-# food
+# food field
 food_label = ttk.Label(info, text="What do you want me to make?")
 food_label.pack(fill='x', expand=True)
 
@@ -74,14 +73,14 @@ food_entry = ttk.Entry(info, textvariable=food)
 food_entry.pack(fill='x', expand=True)
 food_entry.focus()
 
-# Number of people
+# Number of people field
 people_label = ttk.Label(info, text="How many people will this be for?")
 people_label.pack(fill='x', expand=True)
 
 people_entry = ttk.Entry(info, textvariable=num_people)
 people_entry.pack(fill='x', expand=True)
 
-# Customization
+# Customization field
 Custimization_label = ttk.Label(info, text="Would you like to customize? List ingredients to leave out")
 Custimization_label.pack(fill='x', expand=True)
 
