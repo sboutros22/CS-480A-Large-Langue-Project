@@ -6,9 +6,9 @@ from tkinter import ttk
 from tkinter.messagebox import showinfo
 
 def GPT3():
-    if(Custimization == NULL):
     # You need to insert your own key for it to work
-        openai.api_key = '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'
+    openai.api_key = 'Openai-key here'
+    if(Custimization == NULL):
         response = openai.Completion.create(model="text-davinci-002",
                                             prompt="This is a recipe for {} people for {}:".format(num_people.get(),food.get()),
                                             temperature=0.7,
@@ -16,8 +16,6 @@ def GPT3():
                                             top_p=1)
         return response.choices[0].text
     elif(Custimization != NULL):
-       # You need to insert your own key for it to work
-        openai.api_key = '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'
         response = openai.Completion.create(model="text-davinci-002",
                                             prompt="This is a recipe for {} people for {} with {}:".format(num_people.get(),food.get(),Custimization.get()),
                                             temperature=0.7,
