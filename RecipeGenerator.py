@@ -8,7 +8,7 @@ from asyncio.windows_events import NULL
 
 def GPT3():
     # You need to insert your own key for it to work
-    openai.api_key = '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'
+    openai.api_key = 'YOUR API KEY'
     if(customization == NULL):
         response = openai.Completion.create(model="text-davinci-002",
                                             prompt="This is a recipe for {} people for {}:".format(num_people.get(),food.get()),
