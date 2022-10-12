@@ -92,3 +92,5 @@ def AcceptableRecipe(Text):
         return AcceptableRecipe(Text)
         
 
+
+root.mainloop()
