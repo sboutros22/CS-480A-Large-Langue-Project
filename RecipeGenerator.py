@@ -8,7 +8,7 @@ from asyncio.windows_events import NULL
 
 def GPT3():
     # You need to insert your own key for it to work
-    openai.api_key = 'YOUR API KEY'
+    openai.api_key = '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'
     if(customization == NULL):
         response = openai.Completion.create(model="text-davinci-002",
                                             prompt="This is a recipe for {} people for {}:".format(num_people.get(),food.get()),
@@ -29,8 +29,9 @@ def generate_recipe():
     """
     recipe = GPT3()
     
-    recipe_window.title('Recipe')
     recipe_window = tk.Tk()
+    recipe_window.geometry("700x800")
+    recipe_window.title('Recipe')
 
     recipe_label = ttk.Label(recipe_window, text="Here is your custom recipe!")
     recipe_label.pack(expand=True)
