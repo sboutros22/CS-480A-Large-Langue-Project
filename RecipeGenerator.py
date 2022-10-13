@@ -6,7 +6,7 @@ from tkinter.messagebox import showinfo
 from asyncio.windows_events import NULL
 
 def GPT3():
-
+    # Insert your own api key when you are testing and running code
     openai.api_key = 'Your API Key'
 
     if(customization == NULL):
@@ -40,7 +40,6 @@ def generate_recipe():
     recipe_text.insert('0.0', recipe)
     recipe_text.pack(fill=tk.BOTH, expand=True)
 
-    #This is new
     button = ttk.Button(recipe_window, text="Click for a new recipe with the same criteria", command=generate_recipe)
     button.pack(padx=5, pady=5)
 
@@ -55,7 +54,7 @@ root.geometry("350x200")
 root.resizable(True, True)
 root.title('Recipe Generator')
 
-# store email address and password
+# store values and features
 food = tk.StringVar()
 num_people = tk.StringVar()
 customization = tk.StringVar()
