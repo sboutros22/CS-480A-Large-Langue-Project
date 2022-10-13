@@ -29,8 +29,9 @@ def generate_recipe():
     """
     recipe = GPT3()
     
-    recipe_window.title('Recipe')
     recipe_window = tk.Tk()
+    recipe_window.geometry("700x800")
+    recipe_window.title('Recipe')
 
     recipe_label = ttk.Label(recipe_window, text="Here is your custom recipe!")
     recipe_label.pack(expand=True)
