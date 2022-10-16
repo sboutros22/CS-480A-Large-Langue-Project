@@ -24,10 +24,10 @@ def GPT3():
         prompt += '\nMust have ' + whitelist.get() + '.'
     
     
-    response = openai.Completion.create(model="text-davinci-001",
+    response = openai.Completion.create(model="text-davinci-002",
                                         prompt=prompt,
-                                        temperature=0.4,
-                                        max_tokens=512,
+                                        temperature=0.7,
+                                        max_tokens=1000,
                                         top_p=1)
     return response.choices[0].text
 
