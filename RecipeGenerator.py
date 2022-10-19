@@ -13,7 +13,7 @@ def GPT3():
     if (food.get() == ''):
         return 'There is no food to generate.'
     
-    prompt = 'Give me a recipe for ' + food.get() + '.'
+    prompt = 'Give me a recipe for ' + food.get() + ' it must serve ' + num_people.get() + '.'
     
     # Checks if there is any blacklisted food
     if (blacklist.get() != ''):
