@@ -6,22 +6,29 @@ from tkinter.messagebox import showinfo
 from asyncio.windows_events import NULL
 
 def GPT3():
-    # Insert your own api key when you are testing and running code
-    openai.api_key = 'Your API Key'
+    # Insert your api key here
+    openai.api_key = "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"
 
-    if(customization == NULL):
-        response = openai.Completion.create(model="text-davinci-002",
-                                            prompt="This is a recipe for {} people for {}:".format(num_people.get(),food.get()),
-                                            temperature=0.7,
-                                            max_tokens=1000,
-                                            top_p=1)
-        return response.choices[0].text
-    elif(customization != NULL):
-        response = openai.Completion.create(model="text-davinci-002",
-                                            prompt="This is a recipe for {} people for {} with {}:".format(num_people.get(),food.get(),customization.get()),
-                                            temperature=0.7,
-                                            max_tokens=1000,
-                                            top_p=1)
+    # Checks if there is a food in the prompt
+    if (food.get() == ''):
+        return 'There is no food to generate.'
+    
+    prompt = 'Give me a recipe for ' + food.get() + ' it must serve ' + num_people.get() + '.'
+        
+    # Checks if there is any blacklisted food
+    if (blacklist.get() != ''):
+        prompt += '\nMust not have ' + blacklist.get() + '.'
+        
+    # Checks if there is any whitelisted food
+    if (whitelist.get() != ''):
+        prompt += '\nMust have ' + whitelist.get() + '.'
+    
+    
+    response = openai.Completion.create(model="text-davinci-002",
+                                        prompt=prompt,
+                                        temperature=0.7,
+                                        max_tokens=1000,
+                                        top_p=1)
     return response.choices[0].text
 
 def generate_recipe():
@@ -50,14 +57,15 @@ def generate_recipe():
 
 
 root = tk.Tk()
-root.geometry("350x200")
+root.geometry("500x250")
 root.resizable(True, True)
 root.title('Recipe Generator')
 
 # store values and features
 food = tk.StringVar()
 num_people = tk.StringVar()
-customization = tk.StringVar()
+blacklist = tk.StringVar()
+whitelist = tk.StringVar()
 
 
 # Info frame
@@ -73,19 +81,26 @@ food_entry = ttk.Entry(info, textvariable=food)
 food_entry.pack(fill='x', expand=True)
 food_entry.focus()
 
+# Blacklisting ingredients
+customization_label = ttk.Label(info, text="Would you like to blacklist any ingredients? (Comma separated list, leave blank if no)")
+customization_label.pack(fill='x', expand=True)
+
+customization_entry = ttk.Entry(info, textvariable=blacklist)
+customization_entry.pack(fill='x', expand=True)
+
+# Whitelisting ingredients
+customization_label = ttk.Label(info, text="Would you like to whitelist any ingredients? (Comma separated list, leave blank if no)")
+customization_label.pack(fill='x', expand=True)
+
+customization_entry = ttk.Entry(info, textvariable=whitelist)
+customization_entry.pack(fill='x', expand=True)
+
 # Number of people
 people_label = ttk.Label(info, text="How many people will this be for?")
 people_label.pack(fill='x', expand=True)
 
 people_entry = ttk.Entry(info, textvariable=num_people)
 people_entry.pack(fill='x', expand=True)
-
-# Customization
-customization_label = ttk.Label(info, text="Would you like to customize? Leave blank if no.")
-customization_label.pack(fill='x', expand=True)
-
-customization_entry = ttk.Entry(info, textvariable=customization)
-customization_entry.pack(fill='x', expand=True)
 
 # Submit button
 login_button = ttk.Button(info, text="Generate Recipe", command=generate_recipe)
